@@ -599,8 +599,6 @@ video {
   height: auto;
 }
 
-/* Preflight will be injected here */
-
 .container {
   width: 100%;
 }
