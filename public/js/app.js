@@ -73281,6 +73281,8 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -73291,13 +73293,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -73312,11 +73315,43 @@ function (_React$Component) {
     _classCallCheck(this, New);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(New).call(this, props));
-    _this.state = {};
+    _this.state = {
+      title: '',
+      body: ''
+    };
+    _this.handleTitleChange = _this.handleTitleChange.bind(_assertThisInitialized(_this));
+    _this.handleBodyChange = _this.handleBodyChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(New, [{
+    key: "handleTitleChange",
+    value: function handleTitleChange(event) {
+      this.setState({
+        title: event.target.value
+      });
+    }
+  }, {
+    key: "handleBodyChange",
+    value: function handleBodyChange(event) {
+      this.setState({
+        body: event.target.value
+      });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit() {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/posts', {
+        title: this.state.title,
+        body: this.state.body
+      }).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -73329,79 +73364,39 @@ function (_React$Component) {
         className: "w-full md:w-1/2 px-3 mb-6 md:mb-0"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
-        htmlFor: "grid-first-name"
-      }, "First Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        htmlFor: "grid-title"
+      }, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white",
-        id: "grid-first-name",
+        id: "grid-title",
         type: "text",
-        placeholder: "Jane"
+        value: this.state.title,
+        onChange: this.handleTitleChange
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "text-red-500 text-xs italic"
-      }, "Please fill out this field.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "w-full md:w-1/2 px-3"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        className: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
-        htmlFor: "grid-last-name"
-      }, "Last Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-        id: "grid-last-name",
-        type: "text",
-        placeholder: "Doe"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "What's it all about?"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "flex flex-wrap -mx-3 mb-6"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "w-full px-3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
-        htmlFor: "grid-password"
-      }, "Password"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        htmlFor: "grid-body"
+      }, "Body"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         className: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-        id: "grid-password",
-        type: "password",
-        placeholder: "******************"
+        id: "grid-body",
+        type: "textarea",
+        rows: "20",
+        cols: "50",
+        value: this.state.body,
+        onChange: this.handleBodyChange
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "text-gray-600 text-xs italic"
-      }, "Make it as long and as crazy as you'd like"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "flex flex-wrap -mx-3 mb-2"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "w-full md:w-1/3 px-3 mb-6 md:mb-0"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        className: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
-        htmlFor: "grid-city"
-      }, "City"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-        id: "grid-city",
-        type: "text",
-        placeholder: "Albuquerque"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "w-full md:w-1/3 px-3 mb-6 md:mb-0"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        className: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
-        htmlFor: "grid-state"
-      }, "State"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "relative"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-        className: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-        id: "grid-state"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "New Mexico"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Missouri"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Texas")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
-        className: "fill-current h-4 w-4",
-        xmlns: "http://www.w3.org/2000/svg",
-        viewBox: "0 0 20 20"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
-        d: "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "w-full md:w-1/3 px-3 mb-6 md:mb-0"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        className: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
-        htmlFor: "grid-zip"
-      }, "Zip"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-        id: "grid-zip",
-        type: "text",
-        placeholder: "90210"
-      })))));
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "flex items-center justify-between"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline",
+        type: "button",
+        onClick: this.handleSubmit
+      }, "Submit"))));
     }
   }]);
 

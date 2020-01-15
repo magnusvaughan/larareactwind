@@ -1,5 +1,5 @@
 import React from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 import Post from './Post';
 
 class Index extends React.Component {
@@ -13,7 +13,7 @@ class Index extends React.Component {
 
     componentDidMount() {
 
-        Axios.get('api/posts')
+        axios.get('api/posts')
         .then(response => {
             this.setState({
                 posts: response.data
