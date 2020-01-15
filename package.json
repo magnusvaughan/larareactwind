@@ -26,5 +26,8 @@
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
         "tailwindcss": "^1.0"
+    },
+    "dependencies": {
+        "react-router-dom": "^5.1.2"
     }
 }
