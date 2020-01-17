@@ -1,27 +1,53 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
+import axios from 'axios';
 
 class Post extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            redirect: false
+        }
+
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
-    componentDidMount() {
-
+    handleDelete(event) {
+        const postId = event.target.getAttribute('data-id');
+        console.log(postId);
+        axios.delete(`api/posts/${postId}`, {
+            id: postId
+        })
+        .then(() => this.setState({ redirect: true }))
+        .catch(error => {
+          this.setState({
+            errors: error.response.data.errors
+          })
+        })
     }
 
     render() {
+
+        const { redirect } = this.state;
+
+        if (redirect) {
+            return <Redirect to='/'/>;
+          }
+
         return (
             <div className="max-w-sm w-full lg:max-w-full lg:flex mb-6">
-                <div className="border-r border-b border-l border-gray-400 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                <div className="border-r border-b border-l border-gray-400 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal .inline-block">
                     <div className="mb-8">
-                    <p className="text-sm text-gray-600 flex items-center">
-                        <svg className="fill-current text-gray-500 w-3 h-3 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <path d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z" />
-                        </svg>
-                        Member only
+                    <p className="text-sm text-gray-600 flex items-center justify-end">
+                        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" data-id={this.props.id} onClick={this.handleDelete}>
+                            Delete
+                        </button>
                     </p>
-                    <div className="text-gray-900 font-bold text-xl mb-2">{this.props.title}</div>
+
+                    <div className="text-gray-900 font-bold text-xl mb-2"><Link to={`${this.props.id}`} className="block mt-4 lg:inline-block lg:mt-0 text-gray-900 hover:text-gray-600 mr-4">{this.props.title}</Link></div>
                     <p className="text-gray-700 text-base">{this.props.body}</p>
                     </div>
                     <div className="flex items-center">

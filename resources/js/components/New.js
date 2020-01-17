@@ -1,6 +1,7 @@
 
 import React from 'react';
 import axios from 'axios';
+import { Redirect } from 'react-router'
 
 class New extends React.Component {
 
@@ -8,7 +9,8 @@ class New extends React.Component {
         super(props);
         this.state = {
             title: '',
-            body:''
+            body:'',
+            redirect: false
         };
 
         this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -30,17 +32,19 @@ class New extends React.Component {
             title: this.state.title,
             body: this.state.body
           })
-          .then(function (response) {
-            console.log(response);
-          })
+          .then((response) => this.setState({ redirect: true }))
           .catch(function (error) {
             console.log(error);
           });
     }
 
-
-
     render() {
+
+        const { redirect } = this.state;
+
+        if (redirect) {
+          return <Redirect to='/'/>;
+        }
 
         return (
             <div className="container mx-auto">

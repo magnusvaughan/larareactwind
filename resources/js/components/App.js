@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Link, useParams } from 'react-router-dom';
 import Index from './Index';
 import About from './About';
 import New from './New';
+import Show from './Show';
 
 function App () {
 
@@ -30,6 +31,7 @@ function App () {
             <Route path="/" component={Index} exact />
             <Route path="/new" component={New} />
             <Route path="/about" component={About} />
+            <Route path="/:id" component={Show} />
         </Switch>
 
         </main>

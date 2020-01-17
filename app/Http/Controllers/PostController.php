@@ -43,7 +43,7 @@ class PostController extends Controller
 
         $post->save();
 
-        return response('Hello World', 200)
+        return response('Success', 200)
         ->header('Content-Type', 'text/plain');
     }
 
@@ -53,9 +53,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Request $request)
     {
-        //
+        $post = Post::find($request->id);
+        return $post->toJson();
     }
 
     /**
@@ -87,8 +88,13 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Request $request)
     {
-        //
+
+        $post = Post::find($request->id);
+        $post->delete();
+
+        return response('Success', 200)
+        ->header('Content-Type', 'text/plain');
     }
 }

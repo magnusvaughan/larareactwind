@@ -2,22 +2,24 @@ import React from 'react';
 import axios from 'axios';
 import Post from './Post';
 
-class Index extends React.Component {
+class Show extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            posts: []
+            post: {}
         };
     }
 
     componentDidMount() {
 
-        axios.get('api/posts')
+        const postId = this.props.match.params.id;
+
+        axios.get(`api/posts/${postId}`)
         .then(response => {
-            console.log(response);
+            console.log(response.data);
             this.setState({
-                posts: response.data
+                post: response.data
             });
         })
         .catch(error => {
@@ -29,17 +31,14 @@ class Index extends React.Component {
     }
 
     render() {
-        let posts = this.state.posts.map((item, key) =>
-        <Post key={key} id={item.id} title={item.title} body={item.body} />
-        );
 
         return (
             <div className="container mx-auto">
-                {posts}
+            <Post id={this.state.post.id} title={this.state.post.title} body={this.state.post.body} />
             </div>
         );
     }
 
 }
 
-export default Index;
+export default Show;
