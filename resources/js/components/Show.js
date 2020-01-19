@@ -13,9 +13,11 @@ class Show extends React.Component {
 
     componentDidMount() {
 
+        console.log("We're in show.js")
+
         const postId = this.props.match.params.id;
 
-        axios.get(`api/posts/${postId}`)
+        axios.get(`/api/posts/${postId}`)
         .then(response => {
             console.log(response.data);
             this.setState({
@@ -34,7 +36,7 @@ class Show extends React.Component {
 
         return (
             <div className="container mx-auto">
-            <Post id={this.state.post.id} title={this.state.post.title} body={this.state.post.body} />
+                <Post id={this.state.post.id} title={this.state.post.title} body={this.state.post.body} />
             </div>
         );
     }

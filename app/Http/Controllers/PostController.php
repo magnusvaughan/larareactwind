@@ -65,9 +65,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(Request $request)
     {
-        //
+        $post = Post::find($request->id);
+        return $post->toJson();
     }
 
     /**
@@ -79,7 +80,15 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        
+        $post = Post::find($request->id);
+        $post->title =  $request->get('title');
+        $post->body = $request->get('body');
+        $post->save();
+
+        return response('Success', 200)
+        ->header('Content-Type', 'text/plain');
+
     }
 
     /**

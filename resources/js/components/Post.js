@@ -9,10 +9,22 @@ class Post extends React.Component {
         super(props);
 
         this.state = {
-            redirect: false
+            redirect: false,
+            redirectUrl: ''
         }
 
+        this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+    }
+
+    handleEdit(event) {
+        console.log('Editing post');
+        const postId = event.target.getAttribute('data-id');
+        console.log(postId);
+        this.setState({
+            redirectUrl: postId +'/edit',
+            redirect: true
+        });
     }
 
     handleDelete(event) {
@@ -21,7 +33,10 @@ class Post extends React.Component {
         axios.delete(`api/posts/${postId}`, {
             id: postId
         })
-        .then(() => this.setState({ redirect: true }))
+        .then(() => this.setState({ 
+            redirectUrl: '/',
+            redirect: true,
+        }))
         .catch(error => {
           this.setState({
             errors: error.response.data.errors
@@ -34,14 +49,18 @@ class Post extends React.Component {
         const { redirect } = this.state;
 
         if (redirect) {
-            return <Redirect to='/'/>;
-          }
+            console.log("Redirect happening: " + this.state.redirectUrl);
+            return <Redirect to={this.state.redirectUrl}/>;
+        }
 
         return (
             <div className="max-w-sm w-full lg:max-w-full lg:flex mb-6">
-                <div className="border-r border-b border-l border-gray-400 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal .inline-block">
+                <div className="border-r border-b border-l border-gray-400 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal inline-block">
                     <div className="mb-8">
                     <p className="text-sm text-gray-600 flex items-center justify-end">
+                        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mr-3" data-id={this.props.id} onClick={this.handleEdit}>
+                            Edit
+                        </button>
                         <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" data-id={this.props.id} onClick={this.handleDelete}>
                             Delete
                         </button>

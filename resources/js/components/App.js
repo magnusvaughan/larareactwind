@@ -5,6 +5,7 @@ import Index from './Index';
 import About from './About';
 import New from './New';
 import Show from './Show';
+import Edit from './Edit';
 
 function App () {
 
@@ -30,8 +31,9 @@ function App () {
         <Switch>
             <Route path="/" component={Index} exact />
             <Route path="/new" component={New} />
+            <Route path="/:id" component={Show} exact />
+            <Route path="/:id/edit" component={Edit} />
             <Route path="/about" component={About} />
-            <Route path="/:id" component={Show} />
         </Switch>
 
         </main>
